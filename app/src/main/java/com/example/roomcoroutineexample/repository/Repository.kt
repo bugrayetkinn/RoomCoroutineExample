@@ -8,8 +8,6 @@ import com.example.roomcoroutineexample.database.UserDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -19,31 +17,28 @@ Created by : Buğra Yetkin
 Mail : bugrayetkinn@gmail.com
 
  */
-class Repository {
+class Repository(val userDAO: UserDAO) {
 
 
-    companion object {
+    fun initializeDatabase(context: Context): UserDatabase {
+        return UserDatabase.getDatabase(context)
+    }
 
-        fun initializeDatabase(context: Context): UserDatabase {
-            return UserDatabase.getDatabase(context)
-        }
+    fun getAllUser(): LiveData<List<User>> = userDAO.getAllUser()
 
-        fun getAllUser(context: Context): LiveData<List<User>> {
-            return initializeDatabase(context).userDAO().getAllUser()
-        }
 
-        fun insertUser(context: Context, user: User) {
+    suspend fun insertUser(user: User) {
 
-            CoroutineScope(Dispatchers.IO).launch {
-                initializeDatabase(context).userDAO().insert(user)
-            }
-        }
-
-        fun delete(context: Context, user: User) {
-
-            CoroutineScope(Dispatchers.IO).launch {
-                initializeDatabase(context).userDAO().delete(user)
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            userDAO.insert(user)
         }
     }
+
+    suspend fun delete(user: User) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            userDAO.delete(user)
+        }
+    }
+
 }

@@ -1,11 +1,10 @@
 package com.example.roomcoroutineexample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.roomcoroutineexample.database.User
 import com.example.roomcoroutineexample.databinding.ActivityMainBinding
-import com.example.roomcoroutineexample.repository.Repository
 import com.example.roomcoroutineexample.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         var result: String = ""
-        mainViewModel.getAllUser().observe(this, Observer { it ->
+        mainViewModel.getAllUser.observe(this, Observer { it ->
 
             result = ""
 

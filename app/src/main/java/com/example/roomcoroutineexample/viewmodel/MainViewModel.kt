@@ -7,11 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.roomcoroutineexample.database.User
 import com.example.roomcoroutineexample.database.UserDatabase
 import com.example.roomcoroutineexample.repository.Repository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -23,16 +19,18 @@ Mail : bugrayetkinn@gmail.com
  */
 class MainViewModel(private val context: Context) : ViewModel() {
 
+    val userDao = UserDatabase.getDatabase(context).userDAO()
+    val repository = Repository(userDao)
+
+
     fun insertUser(user: User) {
 
         viewModelScope.launch {
-            Repository.insertUser(context, user)
+            repository.insertUser(user)
         }
 
     }
 
-    fun getAllUser(): LiveData<List<User>> {
+    val getAllUser: LiveData<List<User>> = repository.getAllUser()
 
-        return Repository.getAllUser(context)
-    }
 }
