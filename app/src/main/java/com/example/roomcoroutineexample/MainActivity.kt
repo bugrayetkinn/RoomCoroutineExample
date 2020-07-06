@@ -6,21 +6,16 @@ import androidx.lifecycle.Observer
 import com.example.roomcoroutineexample.database.User
 import com.example.roomcoroutineexample.databinding.ActivityMainBinding
 import com.example.roomcoroutineexample.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val activityMainBinding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    private val activityMainBinding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
 
-    private val mainViewModel: MainViewModel by lazy {
-        MainViewModel(this)
-    }
-
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(activityMainBinding.root)
 
         activityMainBinding.buttonSave.setOnClickListener {
@@ -34,7 +29,6 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.insertUser(user)
         }
 
-
         var result: String = ""
         mainViewModel.getAllUser.observe(this, Observer { it ->
 
@@ -44,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 result += "${it.userName} - ${it.userSurname}\n"
             }
             activityMainBinding.textView.text = result
-
         })
 
 

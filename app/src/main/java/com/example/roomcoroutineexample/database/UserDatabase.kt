@@ -1,8 +1,6 @@
 package com.example.roomcoroutineexample.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
@@ -17,17 +15,4 @@ Mail : bugrayetkinn@gmail.com
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun userDAO(): UserDAO
-
-    companion object {
-        var database: UserDatabase? = null
-
-        fun getDatabase(context: Context): UserDatabase {
-
-            if (database == null) {
-                database = Room.databaseBuilder(context, UserDatabase::class.java, "user.db")
-                    .build()
-            }
-            return database!!
-        }
-    }
 }

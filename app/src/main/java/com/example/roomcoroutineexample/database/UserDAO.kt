@@ -19,10 +19,10 @@ Mail : bugrayetkinn@gmail.com
 interface UserDAO {
 
     @Insert
-    suspend fun insert(user: User)
+    fun insert(user: User)
 
     @Delete
-    suspend fun delete(user: User)
+    fun delete(user: User)
 
     @Query("SELECT*FROM user")
     fun getAllUser(): LiveData<List<User>>
