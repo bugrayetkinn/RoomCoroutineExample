@@ -16,7 +16,7 @@ Mail : bugrayetkinn@gmail.com
 data class User(
 
     @PrimaryKey(autoGenerate = true)
-    val userId: Int=0,
+    val userId: Int = 0,
 
     @ColumnInfo(name = "userName")
     val userName: String,

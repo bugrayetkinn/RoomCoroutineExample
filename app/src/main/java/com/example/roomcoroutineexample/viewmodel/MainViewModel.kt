@@ -22,7 +22,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertUser(user)
         }
+    }
 
+    fun deleteUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteUser(user)
+        }
     }
 
     val getAllUser: LiveData<List<User>> = repository.getAllUser()

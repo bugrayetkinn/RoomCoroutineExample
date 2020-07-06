@@ -14,15 +14,17 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
+    private lateinit var userName: String
+    private lateinit var userSurname: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
 
         activityMainBinding.buttonSave.setOnClickListener {
 
-
-            val userName = activityMainBinding.editTextName.text.toString()
-            val userSurname = activityMainBinding.editTextSurname.text.toString()
+            userName = activityMainBinding.editTextName.text.toString()
+            userSurname = activityMainBinding.editTextSurname.text.toString()
 
             val user = User(userName = userName, userSurname = userSurname)
 
@@ -39,7 +41,5 @@ class MainActivity : AppCompatActivity() {
             }
             activityMainBinding.textView.text = result
         })
-
-
     }
 }
