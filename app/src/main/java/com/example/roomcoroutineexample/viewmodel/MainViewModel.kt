@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.roomcoroutineexample.database.User
 import com.example.roomcoroutineexample.repository.Repository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -19,17 +18,16 @@ Mail : bugrayetkinn@gmail.com
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun insertUser(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.insertUser(user)
         }
     }
 
     fun deleteUser(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.deleteUser(user)
         }
     }
 
     val getAllUser: LiveData<List<User>> = repository.getAllUser()
-
 }
